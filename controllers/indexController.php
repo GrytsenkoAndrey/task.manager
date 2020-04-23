@@ -91,6 +91,10 @@ function filter($smarty, $dbn, array $params, array $get, string $filter)
     $rsProducts = formatPriceInData(selectProdByCategory($dbn, $filter, $params, $get));
     # categories
     $rsCategories = getAllCategories($dbn);
+    # добавляем класс для активного элемента
+    for ($i = 0, $qnt = count($rsCategories); $i < $qnt; $i++) {
+        $rsCategories[$i]['active'] = $rsCategories[$i]['category'] == $filter ? ' active' : '';
+    }
     # total found
     $arrT = selectAllProd($dbn, $filter, $get);
     $rsQuantity = selectProdQnt($arrT);
@@ -104,6 +108,7 @@ function filter($smarty, $dbn, array $params, array $get, string $filter)
     # activeUser
     $activeUser = $_SESSION['user_name'] ?? '';
 
+    #
     $smarty->assign('pageTitle', 'Главная');
     $smarty->assign('infoMsg', $infoMsg);
     $smarty->assign('menu', $menu);

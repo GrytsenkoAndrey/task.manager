@@ -14,7 +14,7 @@
         <ul class="filter__list">
           {foreach $rsCategories as $item}
           <li>
-            <a class="filter__list-item" href="/index/{$item['category']}">{$item['description']}</a>
+            <a class="filter__list-item {$item['active']}" href="/index/{$item['category']}">{$item['description']}</a>
           </li>
           {/foreach}
         </ul>

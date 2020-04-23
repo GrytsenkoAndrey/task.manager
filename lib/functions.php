@@ -134,6 +134,16 @@ function d($value = null, int $die = 1)
     $pUri['action'] = empty($arrUri['action']) ||  empty($pUri[0]) ? '' : $arrUri['action'] . '/';
 
     $comparePath = $pUri['controller'] . $pUri['action'];
+    if (empty($comparePath)) {
+        if (isset($arrUri['GET']['new'])) {
+            $comparePath = '?new=on';
+        }
+        if (isset($arrUri['GET']['sale'])) {
+            $comparePath = '?sale=on';
+        }
+    } elseif ($pUri['controller'] == 'index/') {
+        $comparePath = 'index/all/';
+    }
 
     $strMenu = '';
     foreach ($arrMenu as $k => $v) {
