@@ -107,8 +107,10 @@ function filter($smarty, $dbn, array $params, array $get, string $filter)
     $footerMenu = functions\getMenu($fMenu, functions\defineCAP());
     # activeUser
     $activeUser = $_SESSION['user_name'] ?? '';
+    # new & sale
+    $newChecked = isset($get['new']) ? ' checked' : '';
+    $saleChecked = isset($get['sale']) ? ' checked' : '';
 
-    #
     $smarty->assign('pageTitle', 'Главная');
     $smarty->assign('infoMsg', $infoMsg);
     $smarty->assign('menu', $menu);
@@ -118,6 +120,8 @@ function filter($smarty, $dbn, array $params, array $get, string $filter)
     $smarty->assign('activeUser', $activeUser);
     $smarty->assign('rsProducts', $rsProducts);
     $smarty->assign('footerMenu', $footerMenu);
+    $smarty->assign('newChecked', $newChecked);
+    $smarty->assign('saleChecked', $saleChecked);
     functions\loadTemplate($smarty, 'head');
     functions\loadTemplate($smarty, 'index');
     functions\loadTemplate($smarty, 'footer');

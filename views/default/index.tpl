@@ -32,9 +32,9 @@
         </div>
 
         <fieldset class="custom-form__group">
-          <input type="checkbox" name="new" id="new" class="custom-form__checkbox">
+          <input type="checkbox" name="new" id="new" class="custom-form__checkbox" {$newChecked}>
           <label for="new" class="custom-form__checkbox-label custom-form__info" style="display: block;">Новинка</label>
-          <input type="checkbox" name="sale" id="sale" class="custom-form__checkbox">
+          <input type="checkbox" name="sale" id="sale" class="custom-form__checkbox" {$saleChecked}>
           <label for="sale" class="custom-form__checkbox-label custom-form__info" style="display: block;">Распродажа</label>
         </fieldset>
         <input hidden type="text" id="min" name="min" value="">
