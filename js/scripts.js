@@ -480,20 +480,17 @@ if (document.querySelector('.shop-page')) {
  */
 function setPriceValues()
 {
-    const blockDiv = document.querySelector('.range__res');
-    console.log(blockDiv.tagName);
+    const spmin = document.getElementById('min_price');
+    const spmax = document.getElementById('max_price');
+    var strmin = spmin.innerHTML;
+    var strmax = spmax.innerHTML;
+    strmin = strmin.substr(strmin, strmin.length -4).trim();
+    strmax = strmax.substr(strmax, strmax.length -4).trim();
 
-    //const spMin = document.classList.contains('min-price');
-    //const spMax = document.querySelector('.range__res-item max-price');
-    //
-    //const inMin = document.getElementById('min');
-    //const inMax = document.getElementById('max');
-    //
-    //console.log(spMin.tagName());
-    //console.log(spMin.innerHTML);
-    //console.log(spMax.innerHTML);
-    ////inMin.setAttribute('value', spMin.innerHTML);
-    ////inMax.setAttribute('value', spMax.innerHTML);
+
+    var baseUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+    var newUrl = baseUrl + '?min=' + strmin.replace(' ', '') + '&?max=' + strmax.replace(' ', '');
+    history.pushState(null, null, newUrl);
 
 }
 

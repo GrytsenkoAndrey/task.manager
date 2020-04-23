@@ -25,8 +25,8 @@
             <span class="range__info">Цена</span>
             <div class="range__line" aria-label="Range Line"></div>
             <div class="range__res">
-              <span class="range__res-item min-price">350 руб.</span>
-              <span class="range__res-item max-price">32 000 руб.</span>
+              <span class="range__res-item min-price" id="min_price">350 руб.</span>
+              <span class="range__res-item max-price" id="max_price">32 000 руб.</span>
             </div>
           </div>
         </div>
@@ -37,9 +37,9 @@
           <input type="checkbox" name="sale" id="sale" class="custom-form__checkbox" {$saleChecked}>
           <label for="sale" class="custom-form__checkbox-label custom-form__info" style="display: block;">Распродажа</label>
         </fieldset>
-        <input hidden type="text" id="min" name="min" value="">
-        <input hidden type="text" id="max" name="max" value="">
-        <button class="button" type="submit" style="width: 100%" onclick="setPriceValues();">Применить</button>
+        <!--  <input hidden type="text" id="min" name="min" value="">
+        <input hidden type="text" id="max" name="max" value=""> -->
+        <button class="button" type="submit" style="width: 100%" onclick="javascript:setPriceValues();">Применить</button>
       </form>
     </section>
 
