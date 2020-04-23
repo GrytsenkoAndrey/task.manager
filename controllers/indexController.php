@@ -110,6 +110,9 @@ function filter($smarty, $dbn, array $params, array $get, string $filter)
     # new & sale
     $newChecked = isset($get['new']) ? ' checked' : '';
     $saleChecked = isset($get['sale']) ? ' checked' : '';
+    # price
+    $minPrice = isset($get['min']) ? number_format($get['min'], 0, '', ' ') : '350';
+    $maxPrice = isset($get['max']) ? number_format($get['max'], 0, '', ' ') : '32 000';
 
     $smarty->assign('pageTitle', 'Главная');
     $smarty->assign('infoMsg', $infoMsg);
@@ -122,6 +125,8 @@ function filter($smarty, $dbn, array $params, array $get, string $filter)
     $smarty->assign('footerMenu', $footerMenu);
     $smarty->assign('newChecked', $newChecked);
     $smarty->assign('saleChecked', $saleChecked);
+    $smarty->assign('minprice', $minPrice);
+    $smarty->assign('maxprice', $maxPrice);
     functions\loadTemplate($smarty, 'head');
     functions\loadTemplate($smarty, 'index');
     functions\loadTemplate($smarty, 'footer');

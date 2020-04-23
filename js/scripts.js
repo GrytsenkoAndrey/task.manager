@@ -484,14 +484,33 @@ function setPriceValues()
     const spmax = document.getElementById('max_price');
     var strmin = spmin.innerHTML;
     var strmax = spmax.innerHTML;
+    const newitem = document.getElementById('new');
+    const saleitem = document.getElementById('sale');
+
     strmin = strmin.substr(strmin, strmin.length -4).trim();
     strmax = strmax.substr(strmax, strmax.length -4).trim();
-
+    if (newitem.checked) {
+        var strnew = '?new=on&';
+    } else {
+        var strnew = '';
+    }
+    if (saleitem.checked) {
+        if (strnew.length < 1) {
+            var strsale = '?sale=on&';
+        } else {
+            var strsale = 'sale=on&';
+        }
+    } else {
+        var strsale = '';
+    }
+    if (strnew.length < 1 && strsale.length <1 ) {
+        strsale = '?';
+    }
 
     var baseUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
-    var newUrl = baseUrl + '?min=' + strmin.replace(' ', '') + '&?max=' + strmax.replace(' ', '');
-    history.pushState(null, null, newUrl);
-
+    var newUrl = baseUrl + strnew + strsale + 'min=' + strmin.replace(' ', '') + '&max=' + strmax.replace(' ', '');
+    //history.pushState(null, null, newUrl);
+    window.location = newUrl;
 }
 
 /**

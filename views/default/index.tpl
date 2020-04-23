@@ -25,8 +25,8 @@
             <span class="range__info">Цена</span>
             <div class="range__line" aria-label="Range Line"></div>
             <div class="range__res">
-              <span class="range__res-item min-price" id="min_price">350 руб.</span>
-              <span class="range__res-item max-price" id="max_price">32 000 руб.</span>
+              <span class="range__res-item min-price" id="min_price">{$minprice} руб.</span>
+              <span class="range__res-item max-price" id="max_price">{$maxprice} руб.</span>
             </div>
           </div>
         </div>
@@ -39,7 +39,7 @@
         </fieldset>
         <!--  <input hidden type="text" id="min" name="min" value="">
         <input hidden type="text" id="max" name="max" value=""> -->
-        <button class="button" type="submit" style="width: 100%" onclick="javascript:setPriceValues();">Применить</button>
+        <button class="button" type="submit" style="width: 100%" onclick="javascript:setPriceValues();return false;">Применить</button>
       </form>
     </section>
 
