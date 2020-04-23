@@ -30,9 +30,9 @@ function indexAction($smarty, $dbn, array $params, array $get)
     $infoMsg = isset($_SESSION['infoMsg']) ? $_SESSION['infoMsg'] : '';
     if(functions\checkAdmin() || functions\checkModer()) {
         # menu
-        $menu = functions\getMenu(TOP_MENU, functions\parseUri());
+        $menu = functions\getMenu(TOP_MENU, functions\defineCAP());
         $fMenu = isset($_SESSION['user_id']) ? OP_MENU : FOOTER_MENU;
-        $footerMenu = functions\getMenu($fMenu, functions\parseUri());
+        $footerMenu = functions\getMenu($fMenu, functions\defineCAP());
         # activeUser
         $activeUser = $_SESSION['user_name'] ?? '';
         # перебираем массив для форматирования цены
@@ -84,9 +84,9 @@ function addprodAction($smarty, $dbn, array $params, array $get)
     }
 
     # menu
-    $menu = functions\getMenu(TOP_MENU, functions\parseUri());
+    $menu = functions\getMenu(TOP_MENU, functions\defineCAP());
     $fMenu = isset($_SESSION['user_id']) ? OP_MENU : FOOTER_MENU;
-    $footerMenu = functions\getMenu($fMenu, functions\parseUri());
+    $footerMenu = functions\getMenu($fMenu, functions\defineCAP());
     # activeUser
     $activeUser = $_SESSION['user_name'] ?? '';
 
@@ -115,9 +115,9 @@ function editprodAction($smarty, $dbn, array $params, array $get)
         if ($_POST) {
             updateProduct($dbn, $_POST);
             # menu
-            $menu = functions\getMenu(TOP_MENU, functions\parseUri());
+            $menu = functions\getMenu(TOP_MENU, functions\defineCAP());
             $fMenu = isset($_SESSION['user_id']) ? OP_MENU : FOOTER_MENU;
-            $footerMenu = functions\getMenu($fMenu, functions\parseUri());
+            $footerMenu = functions\getMenu($fMenu, functions\defineCAP());
             # activeUser
             $activeUser = $_SESSION['user_name'] ?? '';
 
@@ -130,9 +130,9 @@ function editprodAction($smarty, $dbn, array $params, array $get)
             functions\loadTemplate($smarty, 'footer');
         } else {
             # menu
-            $menu = functions\getMenu(TOP_MENU, functions\parseUri());
+            $menu = functions\getMenu(TOP_MENU, functions\defineCAP());
             $fMenu = isset($_SESSION['user_id']) ? OP_MENU : FOOTER_MENU;
-            $footerMenu = functions\getMenu($fMenu, functions\parseUri());
+            $footerMenu = functions\getMenu($fMenu, functions\defineCAP());
             # activeUser
             $activeUser = $_SESSION['user_name'] ?? '';
             $rsProduct = selectProductById($dbn, $params);
@@ -213,9 +213,9 @@ function orderAction($smarty, $dbn, array $params, array $get)
     $infoMsg = isset($_SESSION['infoMsg']) ? $_SESSION['infoMsg'] : '';
     if(functions\checkAdmin() || functions\checkModer()) {
         # menu
-        $menu = functions\getMenu(TOP_MENU, functions\parseUri());
+        $menu = functions\getMenu(TOP_MENU, functions\defineCAP());
         $fMenu = isset($_SESSION['user_id']) ? OP_MENU : FOOTER_MENU;
-        $footerMenu = functions\getMenu($fMenu, functions\parseUri());
+        $footerMenu = functions\getMenu($fMenu, functions\defineCAP());
         # activeUser
         $activeUser = $_SESSION['user_name'] ?? '';
         # перебираем массив для форматирования цены
@@ -258,9 +258,9 @@ function nfoundAction($smarty, $dbn, array $params, array $get)
     $infoMsg = isset($_SESSION['infoMsg']) ? $_SESSION['infoMsg'] : '';
 
     # menu
-    $menu = functions\getMenu(TOP_MENU, functions\parseUri());
+    $menu = functions\getMenu(TOP_MENU, functions\defineCAP());
     $fMenu = isset($_SESSION['user_id']) ? OP_MENU : FOOTER_MENU;
-    $footerMenu = functions\getMenu($fMenu, functions\parseUri());
+    $footerMenu = functions\getMenu($fMenu, functions\defineCAP());
     # activeUser
     $activeUser = $_SESSION['user_name'] ?? '';
 

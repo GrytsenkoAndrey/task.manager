@@ -98,9 +98,9 @@ function filter($smarty, $dbn, array $params, array $get, string $filter)
     # pagination
     $rsPag = functions\pagination($arrT);
     # menu
-    $menu = functions\getMenu(TOP_MENU, functions\parseUri());
+    $menu = functions\getMenu(TOP_MENU, functions\defineCAP());
     $fMenu = isset($_SESSION['user_id']) ? OP_MENU : FOOTER_MENU;
-    $footerMenu = functions\getMenu($fMenu, functions\parseUri());
+    $footerMenu = functions\getMenu($fMenu, functions\defineCAP());
     # activeUser
     $activeUser = $_SESSION['user_name'] ?? '';
 
