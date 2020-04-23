@@ -128,14 +128,16 @@ function d($value = null, int $die = 1)
     if (!is_array($arrMenu)) {
         trigger_error('Input parameter has to be an array');
     }
-    d($arrUri,0);
-    d($_GET,0);
-    d($_SERVER['QUERY_STRING']);
-    $arrUri[0] = empty($arrUri[0]) ? '' : $arrUri[0];
-    $arrUri[1] = empty($arrUri[1]) ? '' : $arrUri[1];
+    $pUri = parseUri();
+    # если строка запроса сформирована не по умолчанию
+    $pUri['controller'] = empty($arrUri['controller']) || empty($pUri[0]) ? '' : $arrUri['controller'] . '/';
+    $pUri['action'] = empty($arrUri['action']) ||  empty($pUri[0]) ? '' : $arrUri['action'] . '/';
+
+    $comparePath = $pUri['controller'] . $pUri['action'];
+
     $strMenu = '';
     foreach ($arrMenu as $k => $v) {
-        if ($v['path'] == $arrUri[0] . '/' . $arrUri[1] .'/') {
+        if ($v['path'] == $comparePath) {
             $v['active'] = ' active';
         }
         $strMenu .= "<li><a class='main-menu__item" . $v['active'] . "' href='" . BASE_URL . $v['path'] . "'>" . $v['title'] . "</a></li>\n";
