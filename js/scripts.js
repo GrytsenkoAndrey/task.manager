@@ -540,7 +540,11 @@ function sortBy()
 
     console.log(ord);
     console.log(dir);
-
+    if (ord != '' && dir != '') {
+        window.location = window.location + '&ord=' + ord + '&dir=' + dir;
+        //window.location.reload();
+    }
+/*
     $.ajax({
         type: "POST",
         async:true,
@@ -552,6 +556,8 @@ function sortBy()
             resList.removeAttribute('hidden'); // $('#slist').show();
         }
     });
+    */
+
 }
 
 
