@@ -68,7 +68,7 @@ function selectProdQnt(array $data) : int
  * @param array $flags
  * @return array $data
  */
-function selectProdByCategory($db, string $category, array $params, array $get, string $orderBy = 'id', string $dir = 'DESC') : array
+function selectProdByCategory($db, string $category, array $params, array $get) : array
 {
     # category
     $cat = ($category == 'all') ? '%' : $category;
