@@ -542,6 +542,11 @@ function sortBy()
         console.log('question');
     }
 
+    // проверяем есть ли уже сортировка
+    if (currentPath.indexOf('ord') > -1) {
+        currentPath = currentPath.substr(0, currentPath.indexOf('ord') - 1);
+    }
+console.log(currentPath);
     if (sOrder.value == 'Сортировка') {
         ord = '';
     } else {
@@ -553,11 +558,11 @@ function sortBy()
     } else {
         dir = sDir.value;
     }
+    var newPath = currentPath + lineStart + 'ord=' + ord + '&dir=' + dir;
+    console.log(newPath);
 
-    console.log(ord);
-    console.log(dir);
     if (ord != '' && dir != '') {
-        window.location = window.location + lineStart + 'ord=' + ord + '&dir=' + dir;
+        window.location = newPath;
         //window.location.reload();
     }
 /*
