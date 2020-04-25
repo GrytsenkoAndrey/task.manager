@@ -19,7 +19,7 @@
   <!-- <link rel="stylesheet" href="{$templateWebPath}css/bootstrap.css"> -->
   <link rel="stylesheet" href="{$templateWebPath}css/custom.css">
 
-  <script src="/js/jquery-1.12.4.js"></script>
+  <script src="/js/jquery1.12.4.js"></script>
   <script src="/js/jquery-ui.js"></script>
   <script src="/js/scripts.js" defer=""></script>
 </head>

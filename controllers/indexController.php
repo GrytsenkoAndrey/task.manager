@@ -113,6 +113,45 @@ function filter($smarty, $dbn, array $params, array $get, string $filter)
     # price
     $minPrice = isset($get['min']) ? number_format($get['min'], 0, '', ' ') : '350';
     $maxPrice = isset($get['max']) ? number_format($get['max'], 0, '', ' ') : '32 000';
+    # order by & direction
+    if (isset($get['ord'])) {
+        switch ($get['ord']) {
+            case 'price':
+                $price = ' selected';
+                $title = '';
+                break;
+            case 'title':
+                $price = '';
+                $title = ' selected';
+                break;
+            default:
+                $price = '';
+                $title = '';
+                break;
+        }
+    } else {
+        $price = '';
+        $title = '';
+    }
+    if (isset($get['dir'])) {
+        switch ($get['dir']) {
+            case 'ASC':
+                $asc = ' selected';
+                $desc = '';
+                break;
+            case 'DESC':
+                $asc = '';
+                $desc = ' selected';
+                break;
+            default:
+                $asc = '';
+                $desc = '';
+                break;
+        }
+    } else {
+        $asc = '';
+        $desc = '';
+    }
 
     $smarty->assign('pageTitle', 'Главная');
     $smarty->assign('infoMsg', $infoMsg);
@@ -127,6 +166,10 @@ function filter($smarty, $dbn, array $params, array $get, string $filter)
     $smarty->assign('saleChecked', $saleChecked);
     $smarty->assign('minprice', $minPrice);
     $smarty->assign('maxprice', $maxPrice);
+    $smarty->assign('price', $price);
+    $smarty->assign('title', $title);
+    $smarty->assign('asc', $asc);
+    $smarty->assign('desc', $desc);
     functions\loadTemplate($smarty, 'head');
     functions\loadTemplate($smarty, 'index');
     functions\loadTemplate($smarty, 'footer');

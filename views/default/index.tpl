@@ -14,7 +14,7 @@
         <ul class="filter__list">
           {foreach $rsCategories as $item}
           <li>
-            <a class="filter__list-item {$item['active']}" href="/index/{$item['category']}">{$item['description']}</a>
+            <a class="filter__list-item {$item['active']}" href="/index/{$item['category']}/">{$item['description']}</a>
           </li>
           {/foreach}
         </ul>
@@ -48,15 +48,15 @@
         <div class="shop__sorting-item custom-form__select-wrapper">
           <select class="custom-form__select" name="category" id="sortBy" onchange="javascript: sortBy();">
             <option hidden="">Сортировка</option>
-            <option value="price">По цене</option>
-            <option value="title">По названию</option>
+            <option value="price"{$price}>По цене</option>
+            <option value="title"{$title}>По названию</option>
           </select>
         </div>
         <div class="shop__sorting-item custom-form__select-wrapper">
           <select class="custom-form__select" name="prices" id="sortOrder" onchange="javascript: sortBy();">
             <option hidden="">Порядок</option>
-            <option value="ASC">По возрастанию</option>
-            <option value="DESC">По убыванию</option>
+            <option value="ASC"{$asc}>По возрастанию</option>
+            <option value="DESC"{$desc}>По убыванию</option>
           </select>
         </div>
         <p class="shop__sorting-res">Найдено моделей <span class="res-sort">{$quantity}</span> </p>

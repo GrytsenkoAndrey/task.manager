@@ -489,26 +489,33 @@ function setPriceValues()
 
     strmin = strmin.substr(strmin, strmin.length -4).trim();
     strmax = strmax.substr(strmax, strmax.length -4).trim();
+
+    // проверяем есть ли уже параметры
+    var currentPath = String(window.location.pathname);
+    var lineStart = '?';
+    if (currentPath.indexOf('?') > -1) {
+        lineStart = '&';
+    } else {
+        lineStart = '?';
+    }
+
     if (newitem.checked) {
-        var strnew = '?new=on&';
+        var strnew = 'new=on&';
     } else {
         var strnew = '';
     }
     if (saleitem.checked) {
         if (strnew.length < 1) {
-            var strsale = '?sale=on&';
+            var strsale = 'sale=on&';
         } else {
             var strsale = 'sale=on&';
         }
     } else {
         var strsale = '';
     }
-    if (strnew.length < 1 && strsale.length <1 ) {
-        strsale = '?';
-    }
 
     var baseUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
-    var newUrl = baseUrl + strnew + strsale + 'min=' + strmin.replace(' ', '') + '&max=' + strmax.replace(' ', '');
+    var newUrl = baseUrl + lineStart + strnew + 'min=' + strmin.replace(' ', '') + '&max=' + strmax.replace(' ', '');
     //history.pushState(null, null, newUrl);
     window.location = newUrl;
 }
@@ -526,6 +533,19 @@ function sortBy()
     var ord = '';
     var dir = '';
 
+    // проверяем есть ли уже параметры
+    var currentPath = String(window.location.pathname);
+    console.log(currentPath);
+
+    var lineStart = '?';
+    if (currentPath.indexOf(lineStart)> -1) {
+        lineStart = '&';
+        console.log('amp');
+    } else {
+        lineStart = '?';
+        console.log('question');
+    }
+
     if (sOrder.value == 'Сортировка') {
         ord = '';
     } else {
@@ -541,7 +561,7 @@ function sortBy()
     console.log(ord);
     console.log(dir);
     if (ord != '' && dir != '') {
-        window.location = window.location + '&ord=' + ord + '&dir=' + dir;
+        window.location = window.location + lineStart + 'ord=' + ord + '&dir=' + dir;
         //window.location.reload();
     }
 /*
