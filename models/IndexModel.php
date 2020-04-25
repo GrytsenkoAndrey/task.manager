@@ -9,12 +9,12 @@
  */
 
 /**
- * выбрать все товары из таблицы
+ * выбрать все товары из таблицы - используется для формирования навигации
  *
  * @param resource $db
  * @return array $data
  */
-function selectAllProd($db, string $category, array $get) : array
+function selectAllProd($db, string $category, array $get): array
 {
     # category
     $cat = ($category == 'all') ? '%' : $category;
@@ -68,26 +68,30 @@ function selectProdQnt(array $data) : int
  * @param array $flags
  * @return array $data
  */
-function selectProdByCategory($db, string $category, array $params, array $get) : array
+function selectProdByCategory($db, string $category, array $params, array $get, int $limit): array
 {
     # category
     $cat = ($category == 'all') ? '%' : $category;
     # get
-    if (count($get) > 0 && ( isset($get['new']) || isset($get['sale'])) ) {
+    if (count($get) > 0 && ( isset($get['new']) || isset($get['sale']) || isset($get['ord']) || isset($get['dir'])) ) {
         if (isset($get['new'])) {
-            $new_sale = "AND products.new_item = 1 ";
+            $new_sale = !empty($get['new']) ? "AND products.new_item = 1 " : '';
         }
         if (isset($get['sale'])) {
-            $new_sale = "AND products.top_item = 1 ";
+            $new_sale = !empty($get['sale']) ? "AND products.top_item = 1 " : '';
         }
         if (isset($get['new']) && isset($get['sale'])) {
-            $new_sale = "AND products.new_item = 1 AND products.top_item = 1 ";
+            $new_sale = !empty($get['new']) && !empty($get['sale']) ? "AND products.new_item = 1 AND products.top_item = 1 " : '';
+        }
+        if (isset($get['ord']) && isset($get['dir'])) {
+            $sort = !empty($get['ord']) && !empty($get['dir']) ? "ORDER BY products." . $get['ord'] . " " . $get['dir'] : ' ';
         }
     } else {
         $new_sale = " ";
+        $sort = " ";
     }
     # limit
-    $lim = (isset($params['page'])) ? ((int)$params['page'] - 1) * 6 : 0;
+    $lim = (isset($params['page'])) ? ((int)$params['page'] - 1) * $limit : 0;
 
     $sql = "SELECT products.id, products.title, products.price, products.logo, products.new_item, c.description AS ctgry "
         ."FROM products "
@@ -95,8 +99,8 @@ function selectProdByCategory($db, string $category, array $params, array $get) 
         ."LEFT JOIN categories AS c ON c.id = cp.categories_id "
         ."WHERE c.category LIKE ? "
         .$new_sale
-        ."ORDER BY products.{$orderBy} {$dir} "
-        ."LIMIT ?, 6";
+        .$sort
+        ."LIMIT ?, {$limit}";
     $stmt = $db->prepare($sql);
     $stmt->bindValue(1, $cat, \PDO::PARAM_STR);
     $stmt->bindValue(2, $lim, \PDO::PARAM_INT);
@@ -112,7 +116,7 @@ function selectProdByCategory($db, string $category, array $params, array $get) 
  * @param array $rsProduct
  * @return array $data
  */
-function formatPriceInData(array $rsProduct) : array
+function formatPriceInData(array $rsProduct): array
 {
     if (count($rsProduct) > 0) {
         $i = 0;
