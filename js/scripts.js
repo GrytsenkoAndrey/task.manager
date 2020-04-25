@@ -491,13 +491,8 @@ function setPriceValues()
     strmax = strmax.substr(strmax, strmax.length -4).trim();
 
     // проверяем есть ли уже параметры
-    var currentPath = String(window.location.pathname);
+    var currentPath = String(window.location);
     var lineStart = '?';
-    if (currentPath.indexOf('?') > -1) {
-        lineStart = '&';
-    } else {
-        lineStart = '?';
-    }
 
     if (newitem.checked) {
         var strnew = 'new=on&';
@@ -515,7 +510,7 @@ function setPriceValues()
     }
 
     var baseUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
-    var newUrl = baseUrl + lineStart + strnew + 'min=' + strmin.replace(' ', '') + '&max=' + strmax.replace(' ', '');
+    var newUrl = baseUrl + lineStart + strnew + strsale + 'min=' + strmin.replace(' ', '') + '&max=' + strmax.replace(' ', '');
     //history.pushState(null, null, newUrl);
     window.location = newUrl;
 }
@@ -534,8 +529,9 @@ function sortBy()
     var dir = '';
 
     // проверяем есть ли уже параметры
-    var currentPath = String(window.location.pathname);
+    var currentPath = String(window.location);
     console.log(currentPath);
+    console.log(currentPath.indexOf(lineStart));
 
     var lineStart = '?';
     if (currentPath.indexOf(lineStart)> -1) {
