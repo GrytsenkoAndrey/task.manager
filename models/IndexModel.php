@@ -75,7 +75,7 @@ function selectProdByCategory($db, string $category, array $params, array $get, 
     $sort = " ";
     $new_sale = " ";
     # get
-    if (count($get) > 0 && ( isset($get['new']) || isset($get['sale']) || isset($get['ord']) || isset($get['dir'])) ) {
+    if (count($get) > 0 && ( isset($get['new']) || isset($get['sale']) || isset($get['ord']) || isset($get['dir']) || isset($get['min']) || isset($get['max'])) ) {
         if (isset($get['new'])) {
             $new_sale = !empty($get['new']) ? "AND products.new_item = 1 " : '';
         }
@@ -87,6 +87,15 @@ function selectProdByCategory($db, string $category, array $params, array $get, 
         }
         if (isset($get['ord']) && isset($get['dir'])) {
             $sort = !empty($get['ord']) && !empty($get['dir']) ? "ORDER BY products." . $get['ord'] . " " . $get['dir'] . " " : ' ';
+        }
+        if (isset($get['min'])) {
+
+        }
+        if (isset($get['max'])) {
+
+        }
+        if (isset($get['min']) && isset($get['max'])) {
+
         }
     } else {
         $new_sale = " ";
