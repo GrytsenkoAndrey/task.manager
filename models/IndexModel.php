@@ -68,10 +68,12 @@ function selectProdQnt(array $data) : int
  * @param array $flags
  * @return array $data
  */
-function selectProdByCategory($db, string $category, array $params, array $get, int $limit): array
+function selectProdByCategory($db, string $category, array $params, array $get, int $limit = 6): array
 {
     # category
     $cat = ($category == 'all') ? '%' : $category;
+    $sort = " ";
+    $new_sale = " ";
     # get
     if (count($get) > 0 && ( isset($get['new']) || isset($get['sale']) || isset($get['ord']) || isset($get['dir'])) ) {
         if (isset($get['new'])) {
@@ -84,7 +86,7 @@ function selectProdByCategory($db, string $category, array $params, array $get, 
             $new_sale = !empty($get['new']) && !empty($get['sale']) ? "AND products.new_item = 1 AND products.top_item = 1 " : '';
         }
         if (isset($get['ord']) && isset($get['dir'])) {
-            $sort = !empty($get['ord']) && !empty($get['dir']) ? "ORDER BY products." . $get['ord'] . " " . $get['dir'] : ' ';
+            $sort = !empty($get['ord']) && !empty($get['dir']) ? "ORDER BY products." . $get['ord'] . " " . $get['dir'] . " " : ' ';
         }
     } else {
         $new_sale = " ";
@@ -101,6 +103,7 @@ function selectProdByCategory($db, string $category, array $params, array $get, 
         .$new_sale
         .$sort
         ."LIMIT ?, {$limit}";
+
     $stmt = $db->prepare($sql);
     $stmt->bindValue(1, $cat, \PDO::PARAM_STR);
     $stmt->bindValue(2, $lim, \PDO::PARAM_INT);
