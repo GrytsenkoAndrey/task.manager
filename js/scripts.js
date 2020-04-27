@@ -324,6 +324,7 @@ if (addList) {
       checkList(addList, addButton);
     };
 
+    // как данные из reader передать в _POST для загрузки файла на сервер?
     reader.readAsDataURL(file);
 
   });

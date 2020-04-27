@@ -1,4 +1,5 @@
 <main class="page-products">
+  {$infoMsg}
   <h1 class="h h--1">Товары</h1>
   <a class="page-products__button button" href="/admin/addprod/">Добавить товар</a>
   <div class="page-products__header">

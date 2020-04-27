@@ -1,4 +1,5 @@
 <main class="page-edit">
+  {$infoMsg}
   <h1 class="h h--1">Редактирование товара</h1>
   <form class="custom-form" action="/admin/editprod/" method="post">
     <fieldset class="page-edit__group custom-form__group">

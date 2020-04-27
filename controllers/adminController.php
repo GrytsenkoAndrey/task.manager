@@ -46,6 +46,7 @@ function indexAction($smarty, $dbn, array $params, array $get)
         $smarty->assign('footerMenu', $footerMenu);
         $smarty->assign('rsProducts', $rsProducts);
         $smarty->assign('rsPag', $rsPag);
+        $smarty->assign('infoMsg', $infoMsg);
         functions\loadTemplate($smarty, 'head');
         functions\loadTemplate($smarty, 'products');
         functions\loadTemplate($smarty, 'footer');
@@ -77,7 +78,17 @@ function addprodAction($smarty, $dbn, array $params, array $get)
 
     if($_POST) {
 
-        functions\d($_POST);
+        # check !empty
+        if (empty($_POST['product-name']) ||
+            empty($_POST['product-price']) ||
+            empty($_POST['product-photo']) ||
+            empty($_POST['product-qnt']) ||
+            empty($_POST['category']))
+        {
+            $_SESSION['infoMsg'] = "<div class='alert alert-danger'>Все поля должны быть заполнены!</div>";
+            header("Location: /admin/addprod/");
+            exit();
+        }
 
         addProd($dbn, $_POST);
         $bodyTplName = 'add_ok';
@@ -97,6 +108,7 @@ function addprodAction($smarty, $dbn, array $params, array $get)
     $smarty->assign('menu', $menu);
     $smarty->assign('activeUser', $activeUser);
     $smarty->assign('footerMenu', $footerMenu);
+    $smarty->assign('infoMsg', $infoMsg);
     functions\loadTemplate($smarty, 'head');
     functions\loadTemplate($smarty, $bodyTplName);
     functions\loadTemplate($smarty, 'footer');
@@ -116,6 +128,17 @@ function editprodAction($smarty, $dbn, array $params, array $get)
 
     if(functions\checkAdmin() || functions\checkModer()) {
         if ($_POST) {
+            # check !empty
+            if (empty($_POST['product-name']) ||
+                empty($_POST['product-price']) ||
+                empty($_POST['product-photo']) ||
+                empty($_POST['product-qnt']) ||
+                empty($_POST['category']))
+            {
+                $_SESSION['infoMsg'] = "<div class='alert alert-danger'>Все поля должны быть заполнены!</div>";
+                header("Location: /admin/index/");
+                exit();
+            }
             updateProduct($dbn, $_POST);
             # menu
             $menu = functions\getMenu(TOP_MENU, functions\defineCAP());
@@ -150,6 +173,7 @@ function editprodAction($smarty, $dbn, array $params, array $get)
             $smarty->assign('footerMenu', $footerMenu);
             $smarty->assign('rsProduct', $rsProduct);
             $smarty->assign('rsCategories', $rsCategories);
+            $smarty->assign('infoMsg', $infoMsg);
             functions\loadTemplate($smarty, 'head');
             functions\loadTemplate($smarty, 'edit');
             functions\loadTemplate($smarty, 'footer');

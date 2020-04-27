@@ -1,4 +1,5 @@
 <main class="page-add">
+  {$infoMsg}
   <h1 class="h h--1">Добавление товара</h1>
   <form class="custom-form" action="/admin/addprod/" method="post">
     <fieldset class="page-add__group custom-form__group">
