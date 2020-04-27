@@ -289,6 +289,8 @@ const checkList = (list, btn) => {
 
 };
 
+
+// добавление товара
 const addList = document.querySelector('.add-list');
 if (addList) {
 
@@ -343,6 +345,8 @@ if (addList) {
   })
 */
 }
+// страница добавления товара
+
 
 const editList = document.querySelector('.edit-list');
 if (editList) {
