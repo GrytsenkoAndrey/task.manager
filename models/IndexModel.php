@@ -19,18 +19,35 @@ function selectAllProd($db, string $category, array $get): array
     # category
     $cat = ($category == 'all') ? '%' : $category;
     # get
-    if (count($get) > 0 && ( isset($get['new']) || isset($get['sale'])) ) {
+    $sort = " ";
+    $new_sale = " ";
+    $price = " ";
+    if (count($get) > 0 && ( isset($get['new']) || isset($get['sale']) || isset($get['ord']) || isset($get['dir']) || isset($get['min']) || isset($get['max'])) ) {
         if (isset($get['new'])) {
-            $new_sale = "AND products.new_item = 1 ";
+            $new_sale = !empty($get['new']) ? "AND products.new_item = 1 " : '';
         }
         if (isset($get['sale'])) {
-            $new_sale = "AND products.top_item = 1 ";
+            $new_sale = !empty($get['sale']) ? "AND products.top_item = 1 " : '';
         }
         if (isset($get['new']) && isset($get['sale'])) {
-            $new_sale = "AND products.new_item = 1 AND products.top_item = 1 ";
+            $new_sale = !empty($get['new']) && !empty($get['sale']) ? "AND products.new_item = 1 AND products.top_item = 1 " : '';
+        }
+        if (isset($get['ord']) && isset($get['dir'])) {
+            $sort = !empty($get['ord']) && !empty($get['dir']) ? "ORDER BY products." . $get['ord'] . " " . $get['dir'] . " " : ' ';
+        }
+        if (isset($get['min'])) {
+            $price = "AND products.price >= " . (float)$get['min'] . " ";
+        }
+        if (isset($get['max'])) {
+            $price = "AND products.price <= " . (float)$get['max'] . " ";
+        }
+        if (isset($get['min']) && isset($get['max'])) {
+            $price = "AND products.price >= " . (float)$get['min'] . " AND products.price <= " . (float)$get['max'] . " ";
         }
     } else {
         $new_sale = " ";
+        $sort = " ";
+        $price = " ";
     }
 
     $sql = "SELECT products.id, products.title, products.price, products.logo, products.new_item, c.description AS ctgry "
@@ -38,7 +55,10 @@ function selectAllProd($db, string $category, array $get): array
         ."LEFT JOIN cat_prod AS cp ON products.id = cp.products_id "
         ."LEFT JOIN categories AS c ON c.id = cp.categories_id "
         ."WHERE c.category LIKE ? "
-        .$new_sale ;
+        .$new_sale
+        .$price
+        .$sort ;
+
     $stmt = $db->prepare($sql);
     $stmt->bindValue(1, $cat, \PDO::PARAM_STR);
     $stmt->execute();
@@ -72,9 +92,10 @@ function selectProdByCategory($db, string $category, array $params, array $get, 
 {
     # category
     $cat = ($category == 'all') ? '%' : $category;
+    # get
     $sort = " ";
     $new_sale = " ";
-    # get
+    $price = " ";
     if (count($get) > 0 && ( isset($get['new']) || isset($get['sale']) || isset($get['ord']) || isset($get['dir']) || isset($get['min']) || isset($get['max'])) ) {
         if (isset($get['new'])) {
             $new_sale = !empty($get['new']) ? "AND products.new_item = 1 " : '';
@@ -89,17 +110,18 @@ function selectProdByCategory($db, string $category, array $params, array $get, 
             $sort = !empty($get['ord']) && !empty($get['dir']) ? "ORDER BY products." . $get['ord'] . " " . $get['dir'] . " " : ' ';
         }
         if (isset($get['min'])) {
-
+            $price = "AND products.price >= " . (float)$get['min'] . " ";
         }
         if (isset($get['max'])) {
-
+            $price = "AND products.price <= " . (float)$get['max'] . " ";
         }
         if (isset($get['min']) && isset($get['max'])) {
-
+            $price = "AND products.price >= " . (float)$get['min'] . " AND products.price <= " . (float)$get['max'] . " ";
         }
     } else {
         $new_sale = " ";
         $sort = " ";
+        $price = " ";
     }
     # limit
     $lim = (isset($params['page'])) ? ((int)$params['page'] - 1) * $limit : 0;
@@ -110,6 +132,7 @@ function selectProdByCategory($db, string $category, array $params, array $get, 
         ."LEFT JOIN categories AS c ON c.id = cp.categories_id "
         ."WHERE c.category LIKE ? "
         .$new_sale
+        .$price
         .$sort
         ."LIMIT ?, {$limit}";
 
