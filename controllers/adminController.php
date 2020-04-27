@@ -76,6 +76,9 @@ function addprodAction($smarty, $dbn, array $params, array $get)
     }
 
     if($_POST) {
+
+        functions\d($_POST);
+
         addProd($dbn, $_POST);
         $bodyTplName = 'add_ok';
     } else {
