@@ -242,9 +242,10 @@ function checkUser()
  * формируем навигацию по страницам
  *
  * @param array $data - массив после выборки
+ * @param int $cnt - количество записей на странице
  * @return array $result
  */
-function pagination(array $data) : array
+function pagination(array $data, int $cnt = 6) : array
 {
     $arrUri = defineCAP();
     # формируем начало строки адреса
@@ -263,7 +264,7 @@ function pagination(array $data) : array
     # проверяем массивы;
     if (count($data) > 0) {
         # общее количество страниц
-        $total = (count($data) > 1) ? intval((count($data)-1) / 6) + 1 : 0;
+        $total = (count($data) > 1) ? intval((count($data)-1) / $cnt) + 1 : 0;
         $page = array_key_exists('page',$arrUri['params']) ? $arrUri['params']['page'] : 1;
         $arrPag = [];
         if ($page - 2 > 0) {

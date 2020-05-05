@@ -248,7 +248,7 @@ function orderAction($smarty, $dbn, array $params, array $get)
         # перебираем массив для форматирования цены
         $rsOrders = formatPriceInData(selectOrders($dbn, $params));
         # pagination
-        $rsPag = functions\pagination(getAllOrders($dbn));
+        $rsPag = functions\pagination(getAllOrders($dbn), 15);
 
         $smarty->assign('pageTitle', 'каталог');
         $smarty->assign('infoMsg', $infoMsg);

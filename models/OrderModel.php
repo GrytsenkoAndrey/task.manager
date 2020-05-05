@@ -14,13 +14,12 @@
  */
 function addProdToOder($db, array $data)
 {
-    $price = (float)trim($data['price']);
     $sql = "INSERT INTO orders "
         ."VALUES (null, :pid, :payst, :payam, :dcr, :n, :sn, :thn, :phone, :e, :del, :payt, :com)";
     $stmt = $db->prepare($sql);
     $stmt->execute([':pid' => $data['id'],
                     ':payst' => 0,
-                    ':payam' => $data['price'],
+                    ':payam' => (float)$data['price'],
                     ':dcr' => date('Y-m-d H:i:s'),
                     ':n' => $data['name'],
                     ':sn' => $data['surname'],

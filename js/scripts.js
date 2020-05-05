@@ -193,9 +193,11 @@ if (shopList) {
           var comment = form.querySelector('#comment').value;
           
           toggleHidden(shopOrder, popupEnd);
-          
+        // убираем пробелы и обозначение валюты из цены
+          prod_price = prod_price.replace(' ', '');
+          prod_price = prod_price.substr(0, prod_price.search(' '));
           console.log(prod_price);
-          /* ajax запрос для добавления товара в заказы -- */
+          /* ajax запрос для добавления товара в заказы --*/
           $.ajax({
               type: "POST",
               async:true,
@@ -225,6 +227,7 @@ if (shopList) {
 
             }, 1000);
 
+            window.location.reload();
           });
 
         } else {
