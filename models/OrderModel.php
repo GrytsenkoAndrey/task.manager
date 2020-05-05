@@ -14,6 +14,7 @@
  */
 function addProdToOder($db, array $data)
 {
+    $price = (float)trim($data['price']);
     $sql = "INSERT INTO orders "
         ."VALUES (null, :pid, :payst, :payam, :dcr, :n, :sn, :thn, :phone, :e, :del, :payt, :com)";
     $stmt = $db->prepare($sql);
@@ -46,7 +47,7 @@ function selectOrders($db, array $params) : array
 
     $sql = "SELECT id, payment_status, payment_amount, date_created, name, sname, fname, phone, email, delivery, paytype, comments "
         ."FROM orders "
-        ."ORDER BY date_created DESC, payment_status ASC "
+        ."ORDER BY payment_status ASC, date_created DESC "
         ."LIMIT ?, 15";
     $stmt = $db->prepare($sql);
     $stmt->bindValue(1, $lim, \PDO::PARAM_INT);

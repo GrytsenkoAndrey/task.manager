@@ -194,7 +194,7 @@ if (shopList) {
           
           toggleHidden(shopOrder, popupEnd);
           
-          console.log('ajax');
+          console.log(prod_price);
           /* ajax запрос для добавления товара в заказы -- */
           $.ajax({
               type: "POST",

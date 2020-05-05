@@ -21,5 +21,13 @@ if ($dbn == null) {
 require_once BASE_URI.'lib/functions.php';
 # определение контроллера и действия - Controller Action Parameters
 $arr = functions\defineCAP();
+# проверка пользователя
+if ($arr['controller'] == 'admin') {
+    if(!functions\checkAdmin() && !functions\checkModer()) {
+        $_SESSION['infoMsg'] = "<div class='alert alert-danger'>Для доступа к разделу необходимо авторизоваться</div>";
+        header("Location: /user/login/");
+        exit();
+    }
+}
 # page
 functions\loadPage($smarty, $dbn, $arr['controller'], $arr['action'], $arr['params'], $arr['GET']);
