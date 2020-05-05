@@ -77,7 +77,7 @@ function addprodAction($smarty, $dbn, array $params, array $get)
     }
 
     if($_POST) {
-
+functions\d($_POST);
         # check !empty
         if (empty($_POST['product-name']) ||
             empty($_POST['product-price']) ||

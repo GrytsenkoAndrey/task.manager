@@ -1,7 +1,7 @@
 <main class="page-add">
   {$infoMsg}
   <h1 class="h h--1">Добавление товара</h1>
-  <form class="custom-form" action="/admin/addprod/" method="post">
+  <form class="custom-form" action="/admin/addprod/" method="post" enctype="multipart/form-data">
     <fieldset class="page-add__group custom-form__group">
       <legend class="page-add__small-title custom-form__title">Данные о товаре</legend>
       <label for="product-name" class="custom-form__input-wrapper page-add__first-wrapper">
@@ -21,7 +21,7 @@
       <legend class="page-add__small-title custom-form__title">Фотография товара</legend>
       <ul class="add-list">
         <li class="add-list__item add-list__item--add">
-          <input type="file" name="product-photo" id="product-photo" hidden="">
+          <input type="file" id="product-photo" name="product-photo" id="product-photo" hidden="">
           <label for="product-photo">Добавить фотографию</label>
         </li>
       </ul>

@@ -329,6 +329,10 @@ if (addList) {
 
     // как данные из reader передать в _POST для загрузки файла на сервер?
     reader.readAsDataURL(file);
+    // вставляем данные файла в скрытое поле ввода типа file
+    /*var photo = document.getElementById('product-photo');
+console.log(reader);
+    photo.setAttribute('value', reader); // file); */
 
   });
 
