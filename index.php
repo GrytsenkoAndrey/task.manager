@@ -13,6 +13,10 @@ require_once BASE_URI.'nic/config.php';
 # подключение к базе данных
 require_once BASE_URI.'nic/mysql.inc.php'; 
 $dbn = nic\getConn();
+if ($dbn == null) {
+    echo "Error during connection to DB. Call @admin";
+    exit();
+}
 # основые функции
 require_once BASE_URI.'lib/functions.php';
 # определение контроллера и действия - Controller Action Parameters
