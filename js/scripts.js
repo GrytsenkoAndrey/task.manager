@@ -327,16 +327,13 @@ if (addList) {
       checkList(addList, addButton);
     };
 
-    // как данные из reader передать в _POST для загрузки файла на сервер?
+
     reader.readAsDataURL(file);
-    // вставляем данные файла в скрытое поле ввода типа file
-    /*var photo = document.getElementById('product-photo');
-console.log(reader);
-    photo.setAttribute('value', reader); // file); */
+
 
   });
 
-/*  apg 2020-03-28
+/*  apg 2020-03-28   */
   const button = document.querySelector('.button');
   const popupEnd = document.querySelector('.page-add__popup-end');
 
@@ -344,18 +341,38 @@ console.log(reader);
 
     // вставить запрос на добавление товара
     // в базу данных
-    
+    // validate type of file
+    if(['image/jpeg', 'image/jpg', 'image/png', 'image/gif'].indexOf($("#file-to-upload").get(0).files[0].type) == -1) {
+        alert('Error : Only JPEG, PNG & GIF allowed');
+        return;
+    }
+
+    reader.onload = function(){
+    var $data = { 'title': 'Sample Photo Title', 'file': reader.result };
+        $.ajax({
+            type: 'POST',
+            url: '/admin/upload/',
+            data: $data,
+            success: function(response) {
+
+            },
+            error: function(response) {
+
+            },
+        });
+    };
+
     evt.preventDefault();
     
     form.hidden = true;
     popupEnd.hidden = false;
 
-  })
-*/
+  });
 }
 // страница добавления товара
 
 
+// Product Edit Page
 const editList = document.querySelector('.edit-list');
 if (editList) {
 

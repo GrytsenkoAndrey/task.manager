@@ -59,6 +59,55 @@ function indexAction($smarty, $dbn, array $params, array $get)
     }
 }
 
+/** AJAX
+ * загрузка изображения
+ *
+ * @param object $smarty
+ * @param resource $dbn
+ * @param array $params
+ * @param array $get - $_GET
+ */
+ function uploadAction($smarty, $dbn, array $params, array $get)
+ {
+     $infoMsg = isset($_SESSION['infoMsg']) ? $_SESSION['infoMsg'] : '';
+     if(!functions\checkAdmin()) {
+         $_SESSION['infoMsg'] = "<div class='alert alert-danger'>У Вас нет прав для доступа к данному разделу</div>";
+         header("Location: /");
+         exit();
+     }
+
+     $title = $_POST['title'];
+
+     // Decode base64 data
+     list($type, $data) = explode(';', $_POST['file']);
+     list(, $data) = explode(',', $data);
+     $file_data = base64_decode($data);
+
+     // Get file mime type
+     $finfo = finfo_open();
+     $file_mime_type = finfo_buffer($finfo, $file_data, FILEINFO_MIME_TYPE);
+
+     // File extension from mime type
+     if ($file_mime_type == 'image/jpeg' || $file_mime_type == 'image/jpg') {
+         $file_type = 'jpeg';
+     } elseif ($file_mime_type == 'image/png') {
+         $file_type = 'png';
+     } elseif ($file_mime_type == 'image/gif') {
+         $file_type = 'gif';
+     } else {
+         $file_type = 'other';
+     }
+
+     // Validate type of file
+     if(in_array($file_type, [ 'jpeg', 'png', 'gif' ])) {
+         // Set a unique name to the file and save
+         $file_name = TEMPLATE_WEB_PATH . 'img/products/' . pathinfo($file_data, PATHINFO_FILENAME) . $file_type; //uniqid() . '.' . $file_type;
+         file_put_contents($file_name, $file_data);
+     }
+     else {
+         trigger_error('Error : Only JPEG, PNG & GIF allowed');
+     }
+ }
 /**
  * добавление нового товара
  *
