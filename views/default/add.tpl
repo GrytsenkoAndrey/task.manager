@@ -29,7 +29,7 @@
     <fieldset class="page-add__group custom-form__group">
       <legend class="page-add__small-title custom-form__title">Раздел</legend>
       <div class="page-add__select">
-        <select name="category" class="custom-form__select">
+        <select name="category" class="custom-form__select" id="product-category">
           <option hidden="">Название раздела</option>
           <option value="women">Женщины</option>
           <option value="men">Мужчины</option>

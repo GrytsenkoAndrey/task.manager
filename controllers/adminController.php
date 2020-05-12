@@ -78,37 +78,21 @@ function indexAction($smarty, $dbn, array $params, array $get)
 
      $title = $_POST['title'];
 
-     // Decode base64 data
-     list($type, $data) = explode(';', $_POST['file']);
-     list(, $data) = explode(',', $data);
-     $file_data = base64_decode($data);
+     // File name
+     $file_name = $_SERVER['DOCUMENT_ROOT'] . TEMPLATE_WEB_PATH . 'img/products/' . $_FILES['file']['name'];
 
-     // Get file mime type
-     $finfo = finfo_open();
-     $file_mime_type = finfo_buffer($finfo, $file_data, FILEINFO_MIME_TYPE);
-
-     // File extension from mime type
-     if ($file_mime_type == 'image/jpeg' || $file_mime_type == 'image/jpg') {
-         $file_type = 'jpeg';
-     } elseif ($file_mime_type == 'image/png') {
-         $file_type = 'png';
-     } elseif ($file_mime_type == 'image/gif') {
-         $file_type = 'gif';
-     } else {
-         $file_type = 'other';
-     }
+     // File extension
+     $file_type = pathinfo($file_name, PATHINFO_EXTENSION);
 
      // Validate type of file
-     if(in_array($file_type, [ 'jpeg', 'png', 'gif', 'jpg' ])) {
-         // Set a unique name to the file and save
-         $file_name = TEMPLATE_WEB_PATH . 'img/products/' . pathinfo($file_data, PATHINFO_FILENAME) . $file_type; //uniqid() . '.' . $file_type;
-         file_put_contents($file_name, $file_data);
+     if(in_array(strtolower($file_type), [ 'jpeg', 'jpg', 'png', 'gif' ])) {
+         move_uploaded_file($_FILES['file']['tmp_name'], $file_name);
      }
      else {
          trigger_error('Error : Only JPEG, PNG & GIF allowed');
      }
 
-     echo "uploaded $file_mime_type :: $file_name";
+     echo "uploaded $file_type :: $file_name";
  }
 /**
  * добавление нового товара
@@ -126,7 +110,7 @@ function addprodAction($smarty, $dbn, array $params, array $get)
         header("Location: /");
         exit();
     }
-/*
+
     if($_POST) {
 functions\d($_POST);
         # check !empty
@@ -143,10 +127,10 @@ functions\d($_POST);
 
         addProd($dbn, $_POST);
         $bodyTplName = 'add_ok';
-    } else {   */
+    } else {
         $bodyTplName = 'add';
         $_SESSION['infoMsg'] = '';
-    /*}*/
+    }
 
     # menu
     $menu = functions\getMenu(TOP_MENU, functions\defineCAP());

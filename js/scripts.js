@@ -343,15 +343,19 @@ if (addList) {
     // вставить запрос на добавление товара
     // в базу данных
     // validate type of file
+
+/*    var myfile = $('#product-photo').get(0).files[0];
     if(['image/jpeg', 'image/jpg', 'image/png', 'image/gif'].indexOf($('#product-photo').get(0).files[0].type) == -1) {
         alert('Error : Only JPEG, PNG & GIF allowed');
         return;
     }
 console.log('before reader');
-    const reader = new FileReader();
+
+    const rdr = new FileReader();
+    rdr.readAsDataURL(myfile);
     //reader.onload = function(){
         console.log('after reader before ajax');
-        var data = { 'title': 'Sample Photo Title', 'file': reader.result };
+        var data = { 'title': 'Sample Photo Title', 'file': rdr.result };
             $.ajax({
                 type: 'POST',
                 url: '/admin/upload/',
@@ -364,14 +368,57 @@ console.log('before reader');
                 },
             });
     //};
+*/
 
-    evt.preventDefault();
-    
+    var fname = $("#product-photo").get(0).files[0].name;
+
+    if (['image/jpeg', 'image/jpg', 'image/png', 'image/gif'].indexOf($("#product-photo").get(0).files[0].type) == -1) {
+        alert('Error : Only JPEG, PNG & GIF allowed');
+        return;
+    }
+
+    var data = new FormData();
+    data.append('title', 'Sample Photo Title');
+    data.append('file', $("#product-photo").get(0).files[0]);
+
+    // processData & contentType should be set to false
+    $.ajax({
+        type: 'POST',
+        url: '/admin/upload/',
+        data: data,
+        success: function(data) {
+            alert(data);
+        },
+        error: function(data) {
+            alert('not ok');
+        },
+        processData: false,
+        contentType: false
+    });
+    // подготовка данных
+    var name = form.querySelector('#product-name').value;
+    var price = form.querySelector('#product-price').value;
+    var category = form.querySelector('#product-category').value;
+    var product_qnt = form.querySelector('#product-qnt').value;
+    var newitem = form.querySelector('#new').value;
+    var sale = form.querySelector('#sale').value;
+$.ajax({
+    type: "POST",
+    async: true,
+    url: "/admin/addprod/",
+    data: {'name':name,'price':price,'category':category,'product-photo':fname,'pdocuct-qnt':product_qnt,'new':newitem,'sale':sale},
+    success: function(data) {
+        console.log(data);
+    }
+});
+
+evt.preventDefault();
     form.hidden = true;
     popupEnd.hidden = false;
 
+
   });
-}
+} // end if
 // страница добавления товара
 
 
