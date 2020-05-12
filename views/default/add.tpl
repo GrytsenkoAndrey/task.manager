@@ -1,7 +1,7 @@
 <main class="page-add">
   {$infoMsg}
   <h1 class="h h--1">Добавление товара</h1>
-  <form class="custom-form" action="/admin/addprod/" method="post">
+  <form class="custom-form" method="post" enctype="application/x-www-form-urlencoded"> <!-- action="/admin/addprod/" -->
     <fieldset class="page-add__group custom-form__group">
       <legend class="page-add__small-title custom-form__title">Данные о товаре</legend>
       <label for="product-name" class="custom-form__input-wrapper page-add__first-wrapper">
@@ -52,4 +52,10 @@
     </fieldset>
     <button class="button" type="submit">Добавить товар</button>
   </form>
+
+  <section class="shop-page__popup-end page-add__popup-end" hidden>
+    <div class="shop-page__wrapper shop-page__wrapper--popup-end">
+      <h2 class="h h--1 h--icon shop-page__end-title">Товар успешно добавлен</h2>
+    </div>
+  </section>
 </main>

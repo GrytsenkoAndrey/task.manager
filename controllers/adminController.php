@@ -107,6 +107,8 @@ function indexAction($smarty, $dbn, array $params, array $get)
      else {
          trigger_error('Error : Only JPEG, PNG & GIF allowed');
      }
+
+     echo 'uploaded';
  }
 /**
  * добавление нового товара

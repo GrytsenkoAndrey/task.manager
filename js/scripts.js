@@ -337,27 +337,29 @@ if (addList) {
   const button = document.querySelector('.button');
   const popupEnd = document.querySelector('.page-add__popup-end');
 
+  // нажата кнопка "Добавить товар"
   button.addEventListener('click', (evt) => {
 
     // вставить запрос на добавление товара
     // в базу данных
     // validate type of file
-    if(['image/jpeg', 'image/jpg', 'image/png', 'image/gif'].indexOf($("#file-to-upload").get(0).files[0].type) == -1) {
+    if(['image/jpeg', 'image/jpg', 'image/png', 'image/gif'].indexOf($('#product-photo').get(0).files[0].type) == -1) {
         alert('Error : Only JPEG, PNG & GIF allowed');
         return;
     }
 
+    const reader = new FileReader();
     reader.onload = function(){
     var $data = { 'title': 'Sample Photo Title', 'file': reader.result };
         $.ajax({
             type: 'POST',
             url: '/admin/upload/',
             data: $data,
-            success: function(response) {
-
+            success: function() {
+                alert('Ok');
             },
-            error: function(response) {
-
+            error: function() {
+                alert('not ok');
             },
         });
     };
