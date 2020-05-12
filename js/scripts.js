@@ -387,10 +387,10 @@ console.log('before reader');
         url: '/admin/upload/',
         data: data,
         success: function(data) {
-            alert(data);
+            //console.log(data);
         },
         error: function(data) {
-            alert('not ok');
+            //console.log('not ok');
         },
         processData: false,
         contentType: false
@@ -406,9 +406,9 @@ $.ajax({
     type: "POST",
     async: true,
     url: "/admin/addprod/",
-    data: {'name':name,'price':price,'category':category,'product-photo':fname,'pdocuct-qnt':product_qnt,'new':newitem,'sale':sale},
+    data: {'product-name':name,'product-price':price,'category':category,'product-photo':fname,'product-qnt':product_qnt,'new':newitem,'sale':sale},
     success: function(data) {
-        console.log(data);
+        //console.log(data);
     }
 });
 
@@ -474,30 +474,66 @@ reader.readAsDataURL(file);
 
 const button = document.querySelector('.button');
 const popupEnd = document.querySelector('.shop-page__popup-end');  /* ('.page-edit__popup-end'); */
-/*
+
 button.addEventListener('click', (evt) => {
-    const fParent = document.querySelector('.edit-list__item--active');
-    const fImg = fParent.getElementsByTagName("IMG");
 
-    const request = new XMLHttpRequest();
-    const upath = "js/update.php";
-    const params = "logo=" + fImg[0].src;
-    request.open("POST", upath, true);
+     var product_photo = ' ';
+     if ($("#product-photo").get(0).files[0]) {
+         if (['image/jpeg', 'image/jpg', 'image/png', 'image/gif'].indexOf($("#product-photo").get(0).files[0].type) == -1) {
+             alert('Error : Only JPEG, PNG & GIF allowed');
+             return;
+         }
 
-    request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    request.send(params);
-    request.addEventListener("readystatechange", () => {
-        if(request.readyState === 4 && request.status === 200) {
-            evt.preventDefault();
+         var data = new FormData();
+         data.append('title', 'Sample Photo Title');
+         data.append('file', $("#product-photo").get(0).files[0]);
 
-            form.hidden = true;
-            popupEnd.hidden = false;
-        }
-    });
+         // processData & contentType should be set to false
+         $.ajax({
+             type: 'POST',
+             url: '/admin/upload/',
+             data: data,
+             success: function (data) {
+                 //console.log(data);
+             },
+             error: function (data) {
+                 //console.log('not ok');
+             },
+             processData: false,
+             contentType: false
+         });
+         product_photo = $("#product-photo").get(0).files[0].name;
+     } else {
+         product_photo = $('#current-photo').attr('alt');
+     }
+
+     // подготовка данных
+     var name = document.getElementById('product-name').value;
+     var price = document.getElementById('product-price').value;
+     var category = document.getElementById('product-category').value;
+     var product_qnt = document.getElementById('product-qnt').value;
+     var newitem = document.getElementById('new').checked;
+     var sale = document.getElementById('sale').checked;
+     var id = document.getElementById('id').value;
+console.log(newitem);
+console.log(sale);
+     $.ajax({
+         type: "POST",
+         async: true,
+         url: "/admin/editprod/",
+         data: {'id':id,'product-name':name,'product-price':price,'category':category,'product-photo':product_photo,'product-qnt':product_qnt,'new':newitem,'sale':sale},
+         success: function(data) {
+            //console.log(data);
+         }
+     });
+
+     evt.preventDefault();
+     form.hidden = true;
+     popupEnd.hidden = false;
 
 
-});
-  --- */
+
+ });
 
 }
 

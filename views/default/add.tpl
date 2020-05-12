@@ -1,7 +1,7 @@
 <main class="page-add">
   {$infoMsg}
   <h1 class="h h--1">Добавление товара</h1>
-  <form class="custom-form" method="post" enctype="application/x-www-form-urlencoded"> <!-- action="/admin/addprod/" -->
+  <form class="custom-form" method="post" enctype="multipart/form-data"> <!-- action="/admin/addprod/" -->
     <fieldset class="page-add__group custom-form__group">
       <legend class="page-add__small-title custom-form__title">Данные о товаре</legend>
       <label for="product-name" class="custom-form__input-wrapper page-add__first-wrapper">

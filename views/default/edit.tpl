@@ -1,7 +1,7 @@
 <main class="page-edit">
   {$infoMsg}
   <h1 class="h h--1">Редактирование товара</h1>
-  <form class="custom-form" action="/admin/editprod/" method="post">
+  <form class="custom-form" method="post" enctype="multipart/form-data">
     <fieldset class="page-edit__group custom-form__group">
       <legend class="page-edit__small-title custom-form__title">Данные о товаре</legend>
       <label for="product-name" class="custom-form__input-wrapper page-edit__first-wrapper">
@@ -19,14 +19,14 @@
           <label for="product-photo">Изменить фотографию</label>
         </li>
         <li class="edit-list__item edit-list__item--active">
-            <img src="{$templateWebPath}img/products/{$rsProduct['logo']}">
+            <img src="{$templateWebPath}img/products/{$rsProduct['logo']}" id="current-photo" alt="{$rsProduct['logo']}">
         </li>
       </ul>
     </fieldset>
     <fieldset class="page-edit__group custom-form__group">
       <legend class="page-edit__small-title custom-form__title">Раздел</legend>
       <div class="page-edit__select">
-        <select name="category" class="custom-form__select">
+        <select name="category" class="custom-form__select" id="product-category">
           <option hidden="">Название раздела</option>
           {foreach $rsCategories as $item}
               {if $item['category'] == $rsProduct['ctgry'] }
@@ -50,4 +50,10 @@
     <input type="text" hidden name="id" id="id" value="{$rsProduct['id']}">
     <button class="button" type="submit">Изменить товар</button>
   </form>
+
+  <section class="shop-page__popup-end page-add__popup-end" hidden>
+    <div class="shop-page__wrapper shop-page__wrapper--popup-end">
+      <h2 class="h h--1 h--icon shop-page__end-title">Товар успешно изменен</h2>
+    </div>
+  </section>
 </main>

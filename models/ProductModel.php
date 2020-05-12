@@ -73,8 +73,8 @@ function updateProduct($db, array $data)
                     ':logo' => (empty(trim($data['product-photo']))) ? $_SESSION['pr-logo'] : $data['product-photo'],
                     ':price' => $data['product-price'],
                     ':quantity' => $data['product-qnt'],
-                    ':new_item' => (isset($data['new'])) ? 1 : 0,
-                    ':top_item' => (isset($data['sale'])) ? 1 : 0,
+                    ':new_item' => ($data['new'] == 'true') ? 1 : 0,
+                    ':top_item' => ($data['sale'] == 'true') ? 1 : 0,
                     ':id' => (int)$data['id'],
     ]);
     $cat_id = selCatByTitle($db, $data['category']);
