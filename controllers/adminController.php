@@ -99,7 +99,7 @@ function indexAction($smarty, $dbn, array $params, array $get)
      }
 
      // Validate type of file
-     if(in_array($file_type, [ 'jpeg', 'png', 'gif' ])) {
+     if(in_array($file_type, [ 'jpeg', 'png', 'gif', 'jpg' ])) {
          // Set a unique name to the file and save
          $file_name = TEMPLATE_WEB_PATH . 'img/products/' . pathinfo($file_data, PATHINFO_FILENAME) . $file_type; //uniqid() . '.' . $file_type;
          file_put_contents($file_name, $file_data);
@@ -108,7 +108,7 @@ function indexAction($smarty, $dbn, array $params, array $get)
          trigger_error('Error : Only JPEG, PNG & GIF allowed');
      }
 
-     echo 'uploaded';
+     echo "uploaded $file_mime_type :: $file_name";
  }
 /**
  * добавление нового товара
@@ -126,7 +126,7 @@ function addprodAction($smarty, $dbn, array $params, array $get)
         header("Location: /");
         exit();
     }
-
+/*
     if($_POST) {
 functions\d($_POST);
         # check !empty
@@ -143,10 +143,10 @@ functions\d($_POST);
 
         addProd($dbn, $_POST);
         $bodyTplName = 'add_ok';
-    } else {
+    } else {   */
         $bodyTplName = 'add';
         $_SESSION['infoMsg'] = '';
-    }
+    /*}*/
 
     # menu
     $menu = functions\getMenu(TOP_MENU, functions\defineCAP());

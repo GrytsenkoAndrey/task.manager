@@ -347,22 +347,23 @@ if (addList) {
         alert('Error : Only JPEG, PNG & GIF allowed');
         return;
     }
-
+console.log('before reader');
     const reader = new FileReader();
-    reader.onload = function(){
-    var $data = { 'title': 'Sample Photo Title', 'file': reader.result };
-        $.ajax({
-            type: 'POST',
-            url: '/admin/upload/',
-            data: $data,
-            success: function() {
-                alert('Ok');
-            },
-            error: function() {
-                alert('not ok');
-            },
-        });
-    };
+    //reader.onload = function(){
+        console.log('after reader before ajax');
+        var data = { 'title': 'Sample Photo Title', 'file': reader.result };
+            $.ajax({
+                type: 'POST',
+                url: '/admin/upload/',
+                data: data,
+                success: function(data) {
+                    alert(data);
+                },
+                error: function() {
+                    alert('not ok');
+                },
+            });
+    //};
 
     evt.preventDefault();
     
